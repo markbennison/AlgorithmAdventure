@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
 		sr = GetComponent<SpriteRenderer>();
 		animator = GetComponent<Animator>();
 
-		SetMoveSpeed(walkSpeed);
+		SetMoveSpeed(runSpeed);
 	}
 
 	void Update()
@@ -77,15 +77,15 @@ public class PlayerController : MonoBehaviour
 	{
 		if (Input.GetButtonDown("Fire3") && isGrounded)
 		{
-			SetMoveSpeed(runSpeed);
+			SetMoveSpeed(walkSpeed);
 		}
 		if (Input.GetButtonUp("Fire3"))
 		{
-			SetMoveSpeed(walkSpeed);
+			SetMoveSpeed(runSpeed);
 		}
 		if (!isGrounded)
 		{
-			SetMoveSpeed(walkSpeed);
+			SetMoveSpeed(runSpeed);
 		}
 	}
 

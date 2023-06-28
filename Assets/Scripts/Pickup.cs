@@ -19,7 +19,7 @@ public class Pickup : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
-
+            Destroy(this.gameObject);
         }
     }
 }
