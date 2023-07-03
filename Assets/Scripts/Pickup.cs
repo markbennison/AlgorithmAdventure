@@ -19,6 +19,7 @@ public class Pickup : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
+            GameManager.IncrementScore(1);
             Destroy(this.gameObject);
         }
     }
