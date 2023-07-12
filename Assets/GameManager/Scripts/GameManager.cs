@@ -7,9 +7,11 @@ public class GameManager : MonoBehaviour
     // DESIGN PATTERN: SINGLETON
     public static GameManager Instance { get; private set; }
     public UIManager UIManager { get; private set; }
-    //public HighScoreSystem HighScoreSystem { get; private set; }
+	//public HighScoreSystem HighScoreSystem { get; private set; }
 
-    private static float secondsSinceStart = 0;
+	static AudioSource backgroundMusic;
+
+	private static float secondsTimer = 31;
     private static int score;
 
     void Awake()
@@ -22,13 +24,26 @@ public class GameManager : MonoBehaviour
         Instance = this;
 
         UIManager = GetComponent<UIManager>();
-        //HighScoreSystem = GetComponent<HighScoreSystem>();
-    }
+		backgroundMusic = GetComponent<AudioSource>();
+		//HighScoreSystem = GetComponent<HighScoreSystem>();
+	}
 
-    void Update()
+	void Start()
+	{
+		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Confined;
+		ResetGame();
+	}
+
+	void Update()
     {
-        secondsSinceStart += Time.deltaTime;
-        Instance.UIManager.UpdateTimeUI(secondsSinceStart);
+		secondsTimer -= Time.deltaTime;
+        Instance.UIManager.UpdateTimeUI(secondsTimer);
+        if(secondsTimer <= 0)
+        {
+            GameOver();
+
+		}
     }
 
     public static string GetScoreText()
@@ -46,21 +61,22 @@ public class GameManager : MonoBehaviour
     public static void ResetGame()
     {
         ResetScore();
-        secondsSinceStart = 0f;
-        Time.timeScale = 1f;
+        backgroundMusic.Play();
+		secondsTimer = 31;
+		Time.timeScale = 1f;
     }
 
     private static void ResetScore()
     {
         score = 0;
         Instance.UIManager.UpdateScoreUI(score);
-        Debug.Log("Score: " + score);
     }
 
     public void GameOver()
     {
         Time.timeScale = 0f;
-        Instance.UIManager.ActivateEndGame(score);
+		backgroundMusic.Stop();
+		Instance.UIManager.ActivateEndGame(score);
         //HighScoreSystem.CheckHighScore("Anon", score);
     }
 }

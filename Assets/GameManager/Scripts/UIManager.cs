@@ -7,7 +7,9 @@ public class UIManager : MonoBehaviour
 	[SerializeField] TextMeshProUGUI scoreValue;
 	[SerializeField] TextMeshProUGUI timeValue;
 	[SerializeField] GameObject gameOverPanel;
-	//[SerializeField] TextMeshProUGUI endScoreValue;
+	[SerializeField] TextMeshProUGUI endScoreValue;
+
+
 
 	int score = 0;
 
@@ -31,8 +33,8 @@ public class UIManager : MonoBehaviour
 
 	public void ActivateEndGame(int score)
 	{
-		//endScoreValue.text = score.ToString();
-		//gameOverPanel.SetActive(true);
+		endScoreValue.text = score.ToString();
+		gameOverPanel.SetActive(true);
 		Cursor.visible = true;
 	}
 
